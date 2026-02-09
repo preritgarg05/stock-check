@@ -40,7 +40,7 @@ async def check_stock():
 
             print("current minute: ", current_minute)
 
-            if product == "Amul Kool Protein Milkshake | Chocolate, 180 mL | Pack of 8" and not (31 <= current_minute <= 42):
+            if product == "Amul Kool Protein Milkshake | Chocolate, 180 mL | Pack of 8" and not (35 <= current_minute <= 42):
                 print(f"Skipping {product} — outside time window")
                 continue
 
