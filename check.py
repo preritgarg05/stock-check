@@ -34,9 +34,13 @@ from zoneinfo import ZoneInfo
 
 async def check_stock():
     async with async_playwright() as p:
+
+        count = 0
         for product, url in products.items():
-            
+            count += 1
             current_minute = datetime.now(ZoneInfo("Asia/Kolkata")).minute
+            current_hour = datetime.now(ZoneInfo("Asia/Kolkata")).hour
+            print("current hour: ", current_hour)     
 
             print("current minute: ", current_minute)
 
@@ -84,7 +88,7 @@ async def check_stock():
 
             if is_disabled:
                 print(f"{product} is still Out of Stock ❌")
-                if (35 <= current_minute < 40):
+                if (35 <= current_minute < 40) and (current_hour % 2 == 0) and count == 1:
                     print("Send message : Script Working!")
                     send_telegram("Script Working!")
             else:
