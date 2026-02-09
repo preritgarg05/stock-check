@@ -30,12 +30,13 @@ def send_telegram(product):
     requests.post(url, data=payload)
 
 from datetime import datetime
+from zoneinfo import ZoneInfo
 
 async def check_stock():
     async with async_playwright() as p:
         for product, url in products.items():
             
-            current_minute = datetime.now().minute
+            current_minute = datetime.now(ZoneInfo("Asia/Kolkata")).minute
 
             if product == "Milkshake" and not (35 <= current_minute <= 42):
                 print(f"Skipping {product} — outside time window")
