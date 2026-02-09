@@ -10,9 +10,9 @@ import os
 BOT_TOKEN = os.environ["BOT_TOKEN"]
 CHAT_ID = os.environ["CHAT_ID"]
 
-products = {"Milkshake": "https://shop.amul.com/en/product/amul-kool-protein-milkshake-or-chocolate-180-ml-or-pack-of-8",
- "Rose Lassi": "https://shop.amul.com/en/product/amul-high-protein-rose-lassi-200-ml-or-pack-of-30",
- "Normal Lassi": "https://shop.amul.com/en/product/amul-high-protein-plain-lassi-200-ml-or-pack-of-30"}
+products = {"Amul Kool Protein Milkshake | Chocolate, 180 mL | Pack of 8": "https://shop.amul.com/en/product/amul-kool-protein-milkshake-or-chocolate-180-ml-or-pack-of-8",
+ "Amul High Protein Rose Lassi, 200 mL | Pack of 30": "https://shop.amul.com/en/product/amul-high-protein-rose-lassi-200-ml-or-pack-of-30",
+ "Amul High Protein Plain Lassi, 200 mL | Pack of 30": "https://shop.amul.com/en/product/amul-high-protein-plain-lassi-200-ml-or-pack-of-30"}
 
 
 import requests
@@ -40,7 +40,7 @@ async def check_stock():
 
             print("current minute: ", current_minute)
 
-            if product == "Milkshake" and not (35 <= current_minute <= 42):
+            if product == "Amul Kool Protein Milkshake | Chocolate, 180 mL | Pack of 8" and not (31 <= current_minute <= 42):
                 print(f"Skipping {product} — outside time window")
                 continue
 
