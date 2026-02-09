@@ -1,0 +1,39 @@
+name: Stock Monitor
+
+on:
+  # 1. Trigger on a schedule
+  repository_dispatch:
+    types: [external-trigger]
+  # schedule:
+  #   - cron: "*/6 * * * *"   # Adjusted to every 6 minutes
+
+  # 2. Trigger manually via the Actions tab
+  workflow_dispatch:
+
+  # 3. Trigger automatically when you push to the 'main' branch
+  push:
+    branches:
+      - main  # Change this if your branch is named 'master'
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Install deps
+        run: |
+          pip install -r requirements.txt
+          playwright install chromium
+
+      - name: Run script
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          CHAT_ID: ${{ secrets.CHAT_ID }}
+        run: python check.py
