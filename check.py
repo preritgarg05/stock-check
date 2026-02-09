@@ -38,6 +38,8 @@ async def check_stock():
             
             current_minute = datetime.now(ZoneInfo("Asia/Kolkata")).minute
 
+            print("current minute: ", current_minute)
+
             if product == "Milkshake" and not (35 <= current_minute <= 42):
                 print(f"Skipping {product} — outside time window")
                 continue
