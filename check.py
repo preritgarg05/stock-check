@@ -10,15 +10,15 @@ import os
 BOT_TOKEN = os.environ["BOT_TOKEN"]
 CHAT_ID = os.environ["CHAT_ID"]
 
-products = {"Amul Kool Protein Milkshake | Chocolate, 180 mL | Pack of 8": "https://shop.amul.com/en/product/amul-kool-protein-milkshake-or-chocolate-180-ml-or-pack-of-8",
+products = {
+    # "Amul Kool Protein Milkshake | Chocolate, 180 mL | Pack of 8": "https://shop.amul.com/en/product/amul-kool-protein-milkshake-or-chocolate-180-ml-or-pack-of-8",
  "Amul High Protein Rose Lassi, 200 mL | Pack of 30": "https://shop.amul.com/en/product/amul-high-protein-rose-lassi-200-ml-or-pack-of-30",
  "Amul High Protein Plain Lassi, 200 mL | Pack of 30": "https://shop.amul.com/en/product/amul-high-protein-plain-lassi-200-ml-or-pack-of-30"}
 
 
 import requests
 
-def send_telegram(product):
-    message = f"🚀 {product} is IN STOCK!"
+def send_telegram(message):
 
     url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
 
@@ -39,6 +39,7 @@ async def check_stock():
             current_minute = datetime.now(ZoneInfo("Asia/Kolkata")).minute
 
             print("current minute: ", current_minute)
+
 
             if product == "Amul Kool Protein Milkshake | Chocolate, 180 mL | Pack of 8" and not (35 <= current_minute <= 42):
                 print(f"Skipping {product} — outside time window")
@@ -83,19 +84,17 @@ async def check_stock():
 
             if is_disabled:
                 print(f"{product} is still Out of Stock ❌")
+                if (35 <= current_minute < 40):
+                    print("Send message : Script Working!")
+                    send_telegram("Script Working!")
             else:
                 print(f"{product} IN STOCK ✅")
-                send_telegram(product)
+                message = f"🚀 {product} is IN STOCK!  ✅"
+                send_telegram(message)
 
             await browser.close()
 
+asyncio.run(check_stock())
 
-import time
-
-for i in range(2):
-    asyncio.run(check_stock())
-    if i == 1:
-        break
-    time.sleep(60)
     
 
