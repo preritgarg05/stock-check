@@ -88,7 +88,7 @@ async def check_stock():
 
             if is_disabled:
                 print(f"{product} is still Out of Stock ❌")
-                if (35 <= current_minute < 40) and (current_hour % 2 == 0) and count == 1:
+                if (35 <= current_minute < 40) and (current_hour in [8, 12, 16, 20]) and count == 1:
                     print("Send message : Script Working!")
                     send_telegram("Script Working!")
             else:
